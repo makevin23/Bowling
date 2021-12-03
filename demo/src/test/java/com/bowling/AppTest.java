@@ -8,7 +8,7 @@ public class AppTest
 {
 
     @Test
-    public void testAllStrike() throws TryOutOfLineException
+    public void testAllStrike() throws TryOutOfLineException, EndOfLineException
     {
         Line line = new Line();
         line.initLine();
@@ -21,7 +21,7 @@ public class AppTest
     }
 
     @Test
-    public void testNineZero() throws TryOutOfLineException
+    public void testNineZero() throws TryOutOfLineException, EndOfLineException
     {
         Line line = new Line();
         line.initLine();
@@ -34,7 +34,7 @@ public class AppTest
     }
 
     @Test
-    public void testFiveSpare() throws TryOutOfLineException
+    public void testFiveSpare() throws TryOutOfLineException, EndOfLineException
     {
         Line line = new Line();
         line.initLine();
@@ -47,7 +47,7 @@ public class AppTest
     }
 
     @Test (expected = TryOutOfLineException.class)
-    public void testTooMuchTries() throws TryOutOfLineException
+    public void testTooMuchTries() throws TryOutOfLineException, EndOfLineException
     {
         Line line = new Line();
         line.initLine();
@@ -58,7 +58,7 @@ public class AppTest
     }
 
     @Test
-    public void testInvalidFrame() throws TryOutOfLineException
+    public void testInvalidFrame() throws TryOutOfLineException, EndOfLineException
     {
         Line line = new Line();
         line.initLine();

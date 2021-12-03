@@ -14,7 +14,8 @@ public class LineTest {
     }
 
     @Test (expected = InvalidScoreException.class)
-    public void testInvalidScoreMinus1() throws InvalidScoreException{
+    public void testInvalidScoreMinus1() throws InvalidScoreException
+    {
         Line.checkValidScore(-1);
     }
 
@@ -22,7 +23,8 @@ public class LineTest {
     public void testBonus(){}
 
     @Test
-    public void testBonusTry1() throws TryOutOfLineException{
+    public void testBonusTry1() throws TryOutOfLineException, EndOfLineException
+    {
         Line line = new Line();
         line.initLine();
         int[] scores = {5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5};
@@ -38,7 +40,8 @@ public class LineTest {
     }
 
     @Test
-    public void testBonusTry2() throws TryOutOfLineException{
+    public void testBonusTry2() throws TryOutOfLineException, EndOfLineException
+    {
         Line line = new Line();
         line.initLine();
         int[] scores = {5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 10};

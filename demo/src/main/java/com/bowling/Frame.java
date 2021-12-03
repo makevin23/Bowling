@@ -52,13 +52,11 @@ public class Frame {
             updateScore(score);
             currentTry += 1;
             if (currentTry == 1 && this.score == 10) { // Strike
-                // 2 bonus for strike
-                this.bonusTry = 2;
+                this.bonusTry = 2;  // 2 bonus for strike
                 System.out.printf("Strike! Frame %d is over. \n", this.id);
                 return true;
             } else if (currentTry == 2 && this.score == 10) { // Spare
-                // 1 bonus for Spare
-                this.bonusTry = 1;
+                this.bonusTry = 1;  // 1 bonus for Spare
                 System.out.printf("Spare! Frame %d is over \n", this.id);
                 return true;
             } else if (currentTry == 2) { // Frame over with score < 10

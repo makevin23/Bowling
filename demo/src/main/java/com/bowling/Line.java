@@ -41,7 +41,7 @@ public class Line {
         }
     }
 
-    public void startTry(int score) throws TryOutOfLineException{
+    public void startTry(int score) throws TryOutOfLineException,EndOfLineException{
         try {
             if (currentFrame == 11){    // Bonus tries are finished
                 throw new TryOutOfLineException();
@@ -79,6 +79,7 @@ public class Line {
                 System.out.printf("Your Score: %d \n", this.score);
                 printAllScore();
                 currentFrame += 1;
+                throw new EndOfLineException();
             }
 
         } catch (InvalidScoreException e) {
