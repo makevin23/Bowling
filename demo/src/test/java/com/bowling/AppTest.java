@@ -8,42 +8,56 @@ public class AppTest
 {
 
     @Test
-    public void testAllStrike() throws TryOutOfLineException, EndOfLineException
+    public void testAllStrike() throws TryOutOfLineException
     {
         Line line = new Line();
         line.initLine();
         int[] scores = {10,10,10,10,10,10,10,10,10,10,10,10};
         for(int score: scores){
-            line.startTry(score);
+            try {
+                line.startTry(score);
+            } catch (EndOfLineException e) {
+                int finalScore = line.getScore();
+                assertEquals(finalScore, 300);
+            }
+            
         }
-        int finalScore = line.getScore();
-        assertEquals(finalScore, 300);
+        
     }
 
     @Test
-    public void testNineZero() throws TryOutOfLineException, EndOfLineException
+    public void testNineZero() throws TryOutOfLineException
     {
         Line line = new Line();
         line.initLine();
         int[] scores = {9,0, 9,0, 9,0, 9,0, 9,0, 9,0, 9,0, 9,0, 9,0, 9,0};
         for(int score: scores){
-            line.startTry(score);
+            try {
+                line.startTry(score);
+            } catch (EndOfLineException e) {
+                int finalScore = line.getScore();
+                assertEquals(90, finalScore);
+            }
+            
         }
-        int finalScore = line.getScore();
-        assertEquals(90, finalScore);
+        
     }
 
     @Test
-    public void testFiveSpare() throws TryOutOfLineException, EndOfLineException
+    public void testFiveSpare() throws TryOutOfLineException
     {
         Line line = new Line();
         line.initLine();
         int[] scores = {5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5};
         for(int score: scores){
-            line.startTry(score);
+            try {
+                line.startTry(score);
+            } catch (EndOfLineException e) {
+                int finalScore = line.getScore();
+                assertEquals(150, finalScore);
+            }
         }
-        int finalScore = line.getScore();
-        assertEquals(150, finalScore);
+        
     }
 
     @Test (expected = TryOutOfLineException.class)
@@ -53,7 +67,9 @@ public class AppTest
         line.initLine();
         int[] scores = {5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5, 5,5};
         for(int score: scores){
-            line.startTry(score);
+            try {
+                line.startTry(score);
+            } catch (EndOfLineException e) {}
         }
     }
 
