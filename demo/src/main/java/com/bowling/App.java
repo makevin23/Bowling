@@ -1,16 +1,21 @@
 package com.bowling;
 
-import java.util.Scanner;
+
+
+// import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Line l = new Line();
         l.initLine();
-        l.startTry(1);
-        l.startTry(10);
-        l.startTry(9);
-        l.startTry(10);
-        l.startTry(8);
-
+        int[] strike = {10,10,10,10,10,10,10,10,10,10,10,10,10,10};
+        for(int n: strike){
+            try{
+                l.startTry(n);
+            } catch (TryOutOfLineException e){
+                System.out.println("\n======Starting new line======");
+                l.initLine();
+            }
+        }
     }
 }
