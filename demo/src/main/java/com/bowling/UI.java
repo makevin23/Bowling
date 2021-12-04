@@ -121,9 +121,21 @@ public class UI {
             if (scores[0] == 10) { // Strike
                 tryScores[9].setText("X| ");
             } else if (scores[0] + scores[1] == 10) { // Spare
-                tryScores[9].setText(scores[0] + "|/");
+                String first = Integer.toString(scores[0]);
+                if (scores[0]==0){
+                    first = "-";
+                }
+                tryScores[9].setText(first + "|/");
             } else {
-                tryScores[9].setText(scores[0] + "|" + scores[1]);
+                String first = Integer.toString(scores[0]);
+                if(scores[0]==0){
+                    first = "-";
+                }
+                String second = Integer.toString(scores[1]);
+                if(scores[1]==0){
+                    second = "-";
+                }
+                tryScores[9].setText(first + "|" + second);
             }
             return;
         }
@@ -131,16 +143,32 @@ public class UI {
         Frame frame = line.getFrame(currentFrame);
         if (frame.getCurrentTry() == 1) { // update this frame
             int[] scores = frame.getScoreOfTries();
-            tryScores[currentFrame].setText(scores[0] + "|");
+            String first = Integer.toString(scores[0]);
+            if (scores[0]==0){
+                first = "-";
+            }
+            tryScores[currentFrame].setText(first + "|");
         } else if (frame.getCurrentTry() == 0) { // update last frame
             frame = line.getFrame(currentFrame - 1);
             int[] scores = frame.getScoreOfTries();
             if (scores[0] == 10) { // Strike
                 tryScores[currentFrame - 1].setText("X| ");
             } else if (frame.getScore() == 10) { // Spare
-                tryScores[currentFrame - 1].setText(scores[0] + "|/");
+                String first = Integer.toString(scores[0]);
+                if(scores[0]==0){
+                    first = "-";
+                }
+                tryScores[currentFrame - 1].setText(first + "|/");
             } else {
-                tryScores[currentFrame - 1].setText(scores[0] + "|" + scores[1]);
+                String first = Integer.toString(scores[0]);
+                if(scores[0]==0){
+                    first = "-";
+                }
+                String second = Integer.toString(scores[1]);
+                if(scores[1]==0){
+                    second = "-";
+                }
+                tryScores[currentFrame - 1].setText(first + "|" + second);
             }
         }
     }
