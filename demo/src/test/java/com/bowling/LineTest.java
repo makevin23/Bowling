@@ -23,7 +23,7 @@ public class LineTest {
     public void testBonus(){}
 
     @Test
-    public void testBonusTry1() throws TryOutOfLineException, EndOfLineException
+    public void testBonusTry1() throws TryOutOfLineException, EndOfLineException, InvalidScoreException
     {
         Line line = new Line();
         line.initLine();
@@ -43,7 +43,7 @@ public class LineTest {
     }
 
     @Test
-    public void testBonusTry2() throws TryOutOfLineException, EndOfLineException
+    public void testBonusTry2() throws TryOutOfLineException, EndOfLineException, InvalidScoreException
     {
         Line line = new Line();
         line.initLine();
@@ -69,7 +69,7 @@ public class LineTest {
     }
 
     @Test(expected = TryOutOfLineException.class)
-    public void testTooMuchBonusTries() throws TryOutOfLineException, EndOfLineException
+    public void testTooMuchBonusTries() throws TryOutOfLineException, EndOfLineException, InvalidScoreException
     {
         Line line = new Line();
         line.initLine();

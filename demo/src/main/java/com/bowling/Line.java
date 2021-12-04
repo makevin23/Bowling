@@ -7,7 +7,7 @@ public class Line {
     private int score;
     private int currentFrame;
     private int remainingBonus;
-    Frame[] frames = new Frame[NUMBER_OF_FRAMES];
+    private Frame[] frames = new Frame[NUMBER_OF_FRAMES];
 
     public void initLine() {
         for (int i = 0; i < NUMBER_OF_FRAMES; i++) {
@@ -17,7 +17,7 @@ public class Line {
         this.score = 0;
         this.currentFrame = 0;
         this.remainingBonus = 0;
-        
+
     }
 
     public int getScore() {
@@ -25,13 +25,21 @@ public class Line {
     }
 
     // public void getScoreOfFrames() {
-    //     for (Frame f : frames) {
-    //         int score = f.getScore();
-    //         System.out.println(score);
-    //     }
+    // for (Frame f : frames) {
+    // int score = f.getScore();
+    // System.out.println(score);
+    // }
     // }
 
-    public int getRemainingBonus(){
+    public int getCurrentFrame() {
+        return this.currentFrame;
+    }
+
+    public Frame getFrame(int frameNumber) {
+        return this.frames[frameNumber];
+    }
+
+    public int getRemainingBonus() {
         return this.remainingBonus;
     }
 
@@ -41,49 +49,44 @@ public class Line {
         }
     }
 
-    public void startTry(int score) throws TryOutOfLineException,EndOfLineException{
-        try {
-            if (currentFrame == 11){    // Bonus tries are finished
-                throw new TryOutOfLineException();
-            }
-            checkValidScore(score);
-            if (currentFrame == 10 && this.remainingBonus > 0) {  // Bonus try
-                this.remainingBonus -= 1;
-                updateBonus(score);
-                System.out.printf("You have %d bonus try \n", this.remainingBonus);
-            } else {   // normal try
-                System.out.printf("You are in Frame %d \n", currentFrame + 1);
-                boolean frameOver = this.frames[currentFrame].startFrameTry(score);
-                // check and update bonus for previous frame(s)
-                updateBonus(score);
-                this.score += score;
-                if (frameOver) {
-                    int frameScore = frames[currentFrame].getScore();
-                    System.out.printf("Score of Frame %d: , Total Score: %d \n \n", frameScore, this.score);
-                    currentFrame += 1;
-                    if (currentFrame == 10) {
-                        int[] tryScores = frames[9].getScoreOfTries();
-                        if (tryScores[0] == 10) {
-                            this.remainingBonus = 2;    // 2 Bonus for Strike
-                            System.out.println("You get 2 Bonus tries");
-                        } else if (tryScores[0] + tryScores[1] == 10) {
-                            this.remainingBonus = 1;        // 1 Bonus for Spare
-                            System.out.println("You get 1 Bonus try");
-                        }
+    public void startTry(int score) throws TryOutOfLineException, EndOfLineException, InvalidScoreException {
+        if (currentFrame == 11) { // Bonus tries are finished
+            throw new TryOutOfLineException();
+        }
+        checkValidScore(score);
+        if (currentFrame == 10 && this.remainingBonus > 0) { // Bonus try
+            this.remainingBonus -= 1;
+            updateBonus(score);
+            System.out.printf("You have %d bonus try \n", this.remainingBonus);
+        } else { // normal try
+            System.out.printf("You are in Frame %d \n", currentFrame + 1);
+            boolean frameOver = this.frames[currentFrame].startFrameTry(score);
+            // check and update bonus for previous frame(s)
+            updateBonus(score);
+            this.score += score;
+            if (frameOver) {
+                int frameScore = frames[currentFrame].getScore();
+                System.out.printf("Score of Frame %d: , Total Score: %d \n \n", frameScore, this.score);
+                currentFrame += 1;
+                if (currentFrame == 10) {
+                    int[] tryScores = frames[9].getScoreOfTries();
+                    if (tryScores[0] == 10) {
+                        this.remainingBonus = 2; // 2 Bonus for Strike
+                        System.out.println("You get 2 Bonus tries");
+                    } else if (tryScores[0] + tryScores[1] == 10) {
+                        this.remainingBonus = 1; // 1 Bonus for Spare
+                        System.out.println("You get 1 Bonus try");
                     }
                 }
             }
+        }
 
-            if (currentFrame == 10 && this.remainingBonus == 0) {
-                System.out.println("This Line is over!");
-                System.out.printf("Your Score: %d \n", this.score);
-                printAllScore();
-                currentFrame += 1;
-                throw new EndOfLineException();
-            }
-
-        } catch (InvalidScoreException e) {
-            System.out.println("invalid score for a try!");
+        if (currentFrame == 10 && this.remainingBonus == 0) {
+            System.out.println("This Line is over!");
+            System.out.printf("Your Score: %d \n", this.score);
+            printAllScore();
+            currentFrame += 1;
+            throw new EndOfLineException();
         }
     }
 
@@ -96,7 +99,7 @@ public class Line {
                 lastFrame.updateBonus(score);
                 this.score += score;
             }
-        } else  { // other frames, look back two frames
+        } else { // other frames, look back two frames
             Frame lastOne = frames[currentFrame - 1];
             Frame lastTwo = frames[currentFrame - 2];
             if (lastOne.getBonusTry() > 0) {

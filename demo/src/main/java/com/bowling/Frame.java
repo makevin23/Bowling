@@ -28,6 +28,10 @@ public class Frame {
         return this.tries;
     }
 
+    public int getCurrentTry(){
+        return this.currentTry;
+    }
+
     public void updateScore(int score) {
         this.score += score;
     }

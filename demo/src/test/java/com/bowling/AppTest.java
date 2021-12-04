@@ -8,7 +8,7 @@ public class AppTest
 {
 
     @Test
-    public void testAllStrike() throws TryOutOfLineException
+    public void testAllStrike() throws TryOutOfLineException, InvalidScoreException
     {
         Line line = new Line();
         line.initLine();
@@ -26,7 +26,7 @@ public class AppTest
     }
 
     @Test
-    public void testNineZero() throws TryOutOfLineException
+    public void testNineZero() throws TryOutOfLineException, InvalidScoreException
     {
         Line line = new Line();
         line.initLine();
@@ -44,7 +44,7 @@ public class AppTest
     }
 
     @Test
-    public void testFiveSpare() throws TryOutOfLineException
+    public void testFiveSpare() throws TryOutOfLineException, InvalidScoreException
     {
         Line line = new Line();
         line.initLine();
@@ -61,7 +61,7 @@ public class AppTest
     }
 
     @Test (expected = TryOutOfLineException.class)
-    public void testTooMuchTries() throws TryOutOfLineException, EndOfLineException
+    public void testTooMuchTries() throws TryOutOfLineException, EndOfLineException, InvalidScoreException
     {
         Line line = new Line();
         line.initLine();
@@ -74,17 +74,17 @@ public class AppTest
     }
 
     @Test
-    public void testInvalidFrame() throws TryOutOfLineException, EndOfLineException
+    public void testInvalidFrame() throws TryOutOfLineException, EndOfLineException, InvalidScoreException
     {
         Line line = new Line();
         line.initLine();
-        int[] scores = {5,3, 5,10};
+        int[] scores = {5,3, 5,0};
         for(int score: scores){
             line.startTry(score);
         }
         assertEquals(13, line.getScore());
-        Frame frame1 = line.frames[0];
-        Frame frame2 = line.frames[1];
+        Frame frame1 = line.getFrame(0);
+        Frame frame2 = line.getFrame(1);
         assertEquals(8, frame1.getScore());
         assertEquals(5, frame2.getScore());
         int[] tryScores = frame2.getScoreOfTries();
