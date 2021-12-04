@@ -171,7 +171,7 @@ public class UI {
 
     }
 
-    public void restartLine(){
+    public void restartLine() {
         System.out.println("restart");
         line.initLine();
         frame.dispose();

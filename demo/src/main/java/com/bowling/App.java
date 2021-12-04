@@ -1,7 +1,5 @@
 package com.bowling;
 
-
-
 import java.util.Scanner;
 
 public class App {
@@ -13,17 +11,17 @@ public class App {
         // System.out.print("please input your score for this try：");
         // Scanner scan = new Scanner(System.in);
         // while (scan.hasNextInt()) {
-            
-        //     int score = scan.nextInt();
-        //     try{
-        //         line.startTry(score);
-        //     } catch (EndOfLineException e){
-        //         System.out.println("\n======Starting new Line======");
-        //         line.initLine();
-        //     } catch (TryOutOfLineException e){
-        //         System.out.println("[Error] This Line is already over!");
-        //     }
-        //     System.out.print("please input your score for this try：");
+
+        // int score = scan.nextInt();
+        // try{
+        // line.startTry(score);
+        // } catch (EndOfLineException e){
+        // System.out.println("\n======Starting new Line======");
+        // line.initLine();
+        // } catch (TryOutOfLineException e){
+        // System.out.println("[Error] This Line is already over!");
+        // }
+        // System.out.print("please input your score for this try：");
         // }
         // scan.close();
 

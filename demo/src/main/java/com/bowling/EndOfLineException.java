@@ -21,7 +21,7 @@ public class EndOfLineException extends Exception {
 
         JButton restartButton = new JButton("Restart");
         dialog.add(restartButton);
-        restartButton.setBounds(50,100, 50, 20);
+        restartButton.setBounds(50, 100, 50, 20);
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,7 +32,7 @@ public class EndOfLineException extends Exception {
 
         JButton endButton = new JButton("Exit");
         dialog.add(endButton);
-        endButton.setBounds(150,100, 50, 20);
+        endButton.setBounds(150, 100, 50, 20);
         endButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

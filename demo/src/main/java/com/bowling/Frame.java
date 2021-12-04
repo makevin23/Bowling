@@ -24,11 +24,11 @@ public class Frame {
         return this.bonusTry;
     }
 
-    public int[] getTryScores(){
+    public int[] getTryScores() {
         return this.tries;
     }
 
-    public int getCurrentTry(){
+    public int getCurrentTry() {
         return this.currentTry;
     }
 
@@ -49,18 +49,18 @@ public class Frame {
         } else if (currentTry == 1 && score + tries[0] > 10) {
             throw new InvalidScoreException();
         } else {
-            if (currentTry >= 2){
+            if (currentTry >= 2) {
                 return true;
             }
             tries[currentTry] = score;
             updateScore(score);
             currentTry += 1;
             if (currentTry == 1 && this.score == 10) { // Strike
-                this.bonusTry = 2;  // 2 bonus for strike
+                this.bonusTry = 2; // 2 bonus for strike
                 System.out.printf("Strike! Frame %d is over. \n", this.id);
                 return true;
             } else if (currentTry == 2 && this.score == 10) { // Spare
-                this.bonusTry = 1;  // 1 bonus for Spare
+                this.bonusTry = 1; // 1 bonus for Spare
                 System.out.printf("Spare! Frame %d is over \n", this.id);
                 return true;
             } else if (currentTry == 2) { // Frame over with score < 10

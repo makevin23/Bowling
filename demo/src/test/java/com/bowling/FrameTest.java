@@ -6,36 +6,35 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class FrameTest
-{
+public class FrameTest {
 
-    @Test (expected = InvalidScoreException.class)
-    public void testInvalidScore11() throws InvalidScoreException{
+    @Test(expected = InvalidScoreException.class)
+    public void testInvalidScore11() throws InvalidScoreException {
         Frame f = new Frame();
         f.startFrameTry(11);
     }
 
-    @Test (expected = InvalidScoreException.class)
-    public void testInvalidScoreMinus1() throws InvalidScoreException{
+    @Test(expected = InvalidScoreException.class)
+    public void testInvalidScoreMinus1() throws InvalidScoreException {
         Frame f = new Frame();
         f.startFrameTry(-1);
     }
 
-    @Test (expected = InvalidScoreException.class)
-    public void testInvalidFrameScore() throws InvalidScoreException{
+    @Test(expected = InvalidScoreException.class)
+    public void testInvalidFrameScore() throws InvalidScoreException {
         Frame f = new Frame();
         f.startFrameTry(5);
         f.startFrameTry(20);
     }
 
     @Test
-    public void testOneTry() throws InvalidScoreException{
+    public void testOneTry() throws InvalidScoreException {
         Frame f = new Frame();
         assertFalse(f.startFrameTry(5));
     }
 
     @Test
-    public void testStrike() throws InvalidScoreException{
+    public void testStrike() throws InvalidScoreException {
         Frame f = new Frame();
         boolean frameOver = f.startFrameTry(10);
         assertTrue(frameOver);
@@ -51,7 +50,7 @@ public class FrameTest
     }
 
     @Test
-    public void testSpare() throws InvalidScoreException{
+    public void testSpare() throws InvalidScoreException {
         Frame f = new Frame();
         boolean frameOver1 = f.startFrameTry(3);
         boolean frameOver2 = f.startFrameTry(7);
@@ -66,7 +65,7 @@ public class FrameTest
     }
 
     @Test
-    public void testThreeTries() throws InvalidScoreException{
+    public void testThreeTries() throws InvalidScoreException {
         Frame f = new Frame();
         boolean frameOver1 = f.startFrameTry(3);
         boolean frameOver2 = f.startFrameTry(6);
@@ -77,8 +76,5 @@ public class FrameTest
         assertEquals(0, f.getBonusTry());
         assertEquals(9, f.getScore());
     }
-
-
-    
 
 }
