@@ -21,6 +21,10 @@ public class UI {
     JLabel[] tryScores = new JLabel[10];
     JLabel[] frameScores = new JLabel[10];
 
+    
+    /** 
+     * @param line
+     */
     public void startUI(Line line) {
         this.line = line;
         frame = new JFrame("Bowling");
@@ -35,6 +39,10 @@ public class UI {
         frame.setVisible(true);
     }
 
+    
+    /** 
+     * @param panel
+     */
     private void initScoreBoard(JPanel panel) {
         panel.setLayout(null);
 
@@ -62,6 +70,10 @@ public class UI {
         }
     }
 
+    
+    /** 
+     * @param panel
+     */
     private void initElements(JPanel panel) {
         // button to start new line
         JButton newLineButton = new JButton("RESTART");
@@ -114,6 +126,10 @@ public class UI {
         panel.add(submitButton);
     }
 
+    
+    /** 
+     * @param currentFrame
+     */
     private void updateTryScore(int currentFrame) {
         if (currentFrame > 9) {
             Frame frame = line.getFrame(9);
@@ -173,6 +189,10 @@ public class UI {
         }
     }
 
+    
+    /** 
+     * @param currentFrame
+     */
     private void updateFrameScore(int currentFrame) {
         if (currentFrame > 9) {
             frameScores[9].setText(Integer.toString(line.getFrame(9).getScore()));

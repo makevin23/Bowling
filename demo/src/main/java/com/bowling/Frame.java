@@ -8,6 +8,10 @@ public class Frame {
     private int bonusTry;
     private int[] tries = new int[2];
 
+    
+    /** 
+     * @param id
+     */
     public void setId(int id) {
         this.id = id + 1;
     }
@@ -32,16 +36,31 @@ public class Frame {
         return this.currentTry;
     }
 
+    
+    /** 
+     * @param score
+     */
     public void updateScore(int score) {
         this.score += score;
     }
 
+    
+    /** 
+     * @param score
+     */
     public void updateBonus(int score) {
         this.bonus += score;
         this.score += score;
         this.bonusTry -= 1;
     }
 
+    
+    /** 
+     * update score for this frame and return true if this frame ends, otherwise false 
+     * @param score
+     * @return boolean
+     * @throws InvalidScoreException
+     */
     public boolean startFrameTry(int score) throws InvalidScoreException {
         // check if score is valid
         if (score < 0 || score > 10) {

@@ -43,12 +43,29 @@ public class Line {
         return this.remainingBonus;
     }
 
+    
+    /** 
+     * @param score
+     * @throws InvalidScoreException
+     */
     public static void checkValidScore(int score) throws InvalidScoreException {
         if (score < 0 || score > 10) {
             throw new InvalidScoreException();
         }
     }
 
+    
+    /** 
+     * detect if the current try is a normal try or a bonus try
+     * pass the score to current frame
+     * update bonus for previous frames
+     * move to next frame if current frame is over after this try
+     * if current frame is the last frame, check the point of the last frame and update remainingBonus if Strike or Spare
+     * @param score
+     * @throws TryOutOfLineException
+     * @throws EndOfLineException
+     * @throws InvalidScoreException
+     */
     public void startTry(int score) throws TryOutOfLineException, EndOfLineException, InvalidScoreException {
         if (currentFrame == 11) { // Bonus tries are finished
             throw new TryOutOfLineException();
@@ -58,7 +75,7 @@ public class Line {
             this.remainingBonus -= 1;
             updateBonus(score);
             System.out.printf("You have %d bonus try \n", this.remainingBonus);
-        } else { // normal try
+        } else {                                            // normal try
             System.out.printf("You are in Frame %d \n", currentFrame + 1);
             boolean frameOver = this.frames[currentFrame].startFrameTry(score);
             // check and update bonus for previous frame(s)
@@ -80,7 +97,7 @@ public class Line {
                 }
             }
         }
-
+        // out of last frame and no remaining bonus try
         if (currentFrame == 10 && this.remainingBonus == 0) {
             System.out.println("This Line is over!");
             System.out.printf("Your Score: %d \n", this.score);
@@ -90,6 +107,10 @@ public class Line {
         }
     }
 
+    
+    /** 
+     * @param score
+     */
     private void updateBonus(int score) {
         if (currentFrame == 0) { // first frame, no bonus to update
             return;
