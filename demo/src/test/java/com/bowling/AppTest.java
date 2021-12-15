@@ -155,7 +155,7 @@ public class AppTest {
     }
 
     @Test
-    public void testThreeFive() throws TryOutOfLineException, InvalidScoreException {
+    public void testAllMiss() throws TryOutOfLineException, InvalidScoreException {
         Line line = new Line();
         line.initLine();
         int[] scores = { 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5 };
@@ -168,6 +168,33 @@ public class AppTest {
         assertEquals(0, line.getRemainingBonus());
         assertEquals(80, line.getScore());
     }
+
+    @Test
+    public void testStrikeSpare() throws TryOutOfLineException, InvalidScoreException {
+        Line line = new Line();
+        line.initLine();
+        int[] scores = { 10, 9, 1, 10, 7,3, 10,2,8,10,5,5,10,1,9 };
+        for (int score : scores) {
+            try {
+                line.startTry(score);
+            } catch (EndOfLineException e) {
+                assertTrue(false);
+            }
+        }
+        assertEquals(190, line.getScore());
+        assertEquals(10, line.getCurrentFrame());
+        assertEquals(1, line.getRemainingBonus());
+
+        // bonus
+        try {
+            line.startTry(10);
+        } catch (EndOfLineException e) {
+            assertEquals(11, line.getCurrentFrame());
+            assertEquals(0, line.getRemainingBonus());
+        }
+        assertEquals(200, line.getScore());
+    }
+
 
     @Test(expected = TryOutOfLineException.class)
     public void testTooMuchTries() throws TryOutOfLineException, EndOfLineException, InvalidScoreException {
