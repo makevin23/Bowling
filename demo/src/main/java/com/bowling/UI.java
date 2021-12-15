@@ -138,7 +138,7 @@ public class UI {
             Frame frame = line.getFrame(9);
             int[] scores = frame.getScoreOfTries();
             if (scores[0] == 10) {                      // Strike
-                tryScores[9].setText("X| ");
+                tryScores[9].setText(" |X");
             } else if (scores[0] + scores[1] == 10) {   // Spare
                 String first = Integer.toString(scores[0]);
                 if (scores[0]==0){
@@ -171,7 +171,7 @@ public class UI {
             frame = line.getFrame(currentFrame - 1);
             int[] scores = frame.getScoreOfTries();
             if (scores[0] == 10) {                      // Strike
-                tryScores[currentFrame - 1].setText("X| ");
+                tryScores[currentFrame - 1].setText(" |X");
             } else if (frame.getScore() == 10) {        // Spare
                 String first = Integer.toString(scores[0]);
                 if(scores[0]==0){
@@ -198,26 +198,35 @@ public class UI {
      */
     private void updateFrameScore(int currentFrame) {
         if (currentFrame > 9) {                     // last frame and bonus try, update max. last 3 frame score
-            frameScores[9].setText(Integer.toString(line.getFrame(9).getScore()));
-            frameScores[8].setText(Integer.toString(line.getFrame(8).getScore()));
-            frameScores[7].setText(Integer.toString(line.getFrame(7).getScore()));
+            frameScores[7].setText(Integer.toString(Integer.valueOf(frameScores[6].getText())+line.getFrame(7).getScore()));
+            frameScores[8].setText(Integer.toString(Integer.valueOf(frameScores[7].getText())+line.getFrame(8).getScore()));
+            frameScores[9].setText(Integer.toString(Integer.valueOf(frameScores[8].getText())+line.getFrame(9).getScore()));
             return;
         }
+        Frame frame;
+        if(currentFrame==0){
+            frame = line.getFrame(currentFrame);
+        } else{
+            frame = line.getFrame(currentFrame-1);
+        }
+        
+        if(frame.getCurrentTry()==1 && currentFrame!=0){
+            frame = line.getFrame(currentFrame-1);
+        }
 
-        Frame frame = line.getFrame(currentFrame);
-        if (frame.getCurrentTry() == 1) {           // this frame is not over
-            frameScores[currentFrame].setText(Integer.toString(frame.getScore()));
-        } else {                                    // last frame is over, update last frame
-            frame = line.getFrame(currentFrame - 1);
-            frameScores[currentFrame - 1].setText(Integer.toString(frame.getScore()));
-            if (currentFrame == 1) {                // no bonus score to update in first frame
-                return;
-            } else if (currentFrame == 2) {         // bonus score for the first frame in second frame
-                frameScores[0].setText(Integer.toString(line.getFrame(0).getScore()));
-            } else {                                // bonus score for max. last 2 frames in other frames
-                frameScores[currentFrame - 2].setText(Integer.toString(line.getFrame(currentFrame - 2).getScore()));
-                frameScores[currentFrame - 3].setText(Integer.toString(line.getFrame(currentFrame - 3).getScore()));
-            }
+        if (currentFrame==1 || currentFrame==0) {
+            frameScores[0].setText(Integer.toString(frame.getScore()));
+        } else if (currentFrame==2) {
+            frameScores[0].setText(Integer.toString(line.getFrame(0).getScore()));
+            frameScores[1].setText(Integer.toString(Integer.valueOf(frameScores[0].getText())+frame.getScore()));
+        } else if (currentFrame==3) {
+            frameScores[0].setText(Integer.toString(line.getFrame(0).getScore()));
+            frameScores[1].setText(Integer.toString(Integer.valueOf(frameScores[0].getText())+line.getFrame(1).getScore()));
+            frameScores[2].setText(Integer.toString(Integer.valueOf(frameScores[1].getText())+frame.getScore()));
+        } else {
+            frameScores[currentFrame-3].setText(Integer.toString(Integer.valueOf(frameScores[currentFrame-4].getText())+line.getFrame(currentFrame-3).getScore()));
+            frameScores[currentFrame-2].setText(Integer.toString(Integer.valueOf(frameScores[currentFrame-3].getText())+line.getFrame(currentFrame-2).getScore()));
+            frameScores[currentFrame-1].setText(Integer.toString(Integer.valueOf(frameScores[currentFrame-2].getText())+frame.getScore()));
         }
 
     }
