@@ -53,9 +53,9 @@ public class LineTest {
             assertEquals(1, line.getRemainingBonus());
         }
         try {
-            line.startTry(10);
+            line.startTry(3);
         } catch (Exception e) {
-            assertEquals(167, line.getScore());
+            assertEquals(160, line.getScore());
             assertEquals(0, line.getRemainingBonus());
         }
     }
@@ -78,9 +78,9 @@ public class LineTest {
             assertEquals(1, line.getRemainingBonus());
         }
         try {
-            line.startTry(10);
+            line.startTry(3);
         } catch (Exception e) {
-            assertEquals(167, line.getScore());
+            assertEquals(160, line.getScore());
             assertEquals(0, line.getRemainingBonus());
         }
 

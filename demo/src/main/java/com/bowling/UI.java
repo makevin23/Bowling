@@ -50,6 +50,7 @@ public class UI {
         Border blackline = BorderFactory.createLineBorder(Color.black);
 
         for (int i = 0; i < 10; i++) {
+            // first line: frame number
             JLabel frameNumber = new JLabel(Integer.toString(i + 1), SwingConstants.CENTER);
             int x = 20 + i * 60;
             frameNumber.setBounds(x, 10, 60, 40);
@@ -57,11 +58,13 @@ public class UI {
             frameNumber.setForeground(Color.blue);
             panel.add(frameNumber);
 
+            // second line: scores for each try
             tryScores[i] = new JLabel("|", SwingConstants.CENTER);
             tryScores[i].setBounds(x, 60, 60, 40);
             tryScores[i].setBorder(blackline);
             panel.add(tryScores[i]);
 
+            // third line: scores for frames
             frameScores[i] = new JLabel("0", SwingConstants.CENTER);
             frameScores[i].setBounds(x, 110, 60, 40);
             frameScores[i].setBorder(blackline);
@@ -104,17 +107,17 @@ public class UI {
                 int score = Integer.valueOf(tryScore.getText());
                 try {
                     line.startTry(score);
-                    int currentFrame = line.getCurrentFrame(); // returns next frame if it is over
+                    int currentFrame = line.getCurrentFrame();  // returns next frame if it is over
                     if (currentFrame < 10) {
                         updateTryScore(currentFrame);
                         updateFrameScore(currentFrame);
-                    } else { // bonus try
+                    } else {                                    // bonus try
                         updateTryScore(10);
                         updateFrameScore(10);
                     }
                 } catch (TryOutOfLineException e1) {
                     e1.invalidLineNumberDialog();
-                } catch (EndOfLineException e1) {
+                } catch (EndOfLineException e1) {               // the line ends, update scores and show the final score
                     updateFrameScore(10);
                     updateTryScore(10);
                     e1.endOfLineDialog(line.getScore(), UI.this);
@@ -131,20 +134,20 @@ public class UI {
      * @param currentFrame
      */
     private void updateTryScore(int currentFrame) {
-        if (currentFrame > 9) {
+        if (currentFrame > 9) {                         // last frame
             Frame frame = line.getFrame(9);
             int[] scores = frame.getScoreOfTries();
-            if (scores[0] == 10) { // Strike
+            if (scores[0] == 10) {                      // Strike
                 tryScores[9].setText("X| ");
-            } else if (scores[0] + scores[1] == 10) { // Spare
+            } else if (scores[0] + scores[1] == 10) {   // Spare
                 String first = Integer.toString(scores[0]);
                 if (scores[0]==0){
                     first = "-";
                 }
                 tryScores[9].setText(first + "|/");
-            } else {
+            } else {                                    // no Strike or Spare
                 String first = Integer.toString(scores[0]);
-                if(scores[0]==0){
+                if(scores[0]==0){                       // if score is zero, show "-"
                     first = "-";
                 }
                 String second = Integer.toString(scores[1]);
@@ -157,25 +160,25 @@ public class UI {
         }
 
         Frame frame = line.getFrame(currentFrame);
-        if (frame.getCurrentTry() == 1) { // update this frame
+        if (frame.getCurrentTry() == 1) {               // this frame is not over, update this frame
             int[] scores = frame.getScoreOfTries();
             String first = Integer.toString(scores[0]);
             if (scores[0]==0){
                 first = "-";
             }
             tryScores[currentFrame].setText(first + "|");
-        } else if (frame.getCurrentTry() == 0) { // update last frame
+        } else if (frame.getCurrentTry() == 0) {        // this is a new frame, update last frame
             frame = line.getFrame(currentFrame - 1);
             int[] scores = frame.getScoreOfTries();
-            if (scores[0] == 10) { // Strike
+            if (scores[0] == 10) {                      // Strike
                 tryScores[currentFrame - 1].setText("X| ");
-            } else if (frame.getScore() == 10) { // Spare
+            } else if (frame.getScore() == 10) {        // Spare
                 String first = Integer.toString(scores[0]);
                 if(scores[0]==0){
                     first = "-";
                 }
                 tryScores[currentFrame - 1].setText(first + "|/");
-            } else {
+            } else {                                    // no Strike or Spare
                 String first = Integer.toString(scores[0]);
                 if(scores[0]==0){
                     first = "-";
@@ -194,7 +197,7 @@ public class UI {
      * @param currentFrame
      */
     private void updateFrameScore(int currentFrame) {
-        if (currentFrame > 9) {
+        if (currentFrame > 9) {                     // last frame and bonus try, update max. last 3 frame score
             frameScores[9].setText(Integer.toString(line.getFrame(9).getScore()));
             frameScores[8].setText(Integer.toString(line.getFrame(8).getScore()));
             frameScores[7].setText(Integer.toString(line.getFrame(7).getScore()));
@@ -202,16 +205,16 @@ public class UI {
         }
 
         Frame frame = line.getFrame(currentFrame);
-        if (frame.getCurrentTry() == 1) { // this frame is not over
+        if (frame.getCurrentTry() == 1) {           // this frame is not over
             frameScores[currentFrame].setText(Integer.toString(frame.getScore()));
-        } else { // this frame is over, update last frame
+        } else {                                    // last frame is over, update last frame
             frame = line.getFrame(currentFrame - 1);
             frameScores[currentFrame - 1].setText(Integer.toString(frame.getScore()));
-            if (currentFrame == 1) {
+            if (currentFrame == 1) {                // no bonus score to update in first frame
                 return;
-            } else if (currentFrame == 2) {
+            } else if (currentFrame == 2) {         // bonus score for the first frame in second frame
                 frameScores[0].setText(Integer.toString(line.getFrame(0).getScore()));
-            } else {
+            } else {                                // bonus score for max. last 2 frames in other frames
                 frameScores[currentFrame - 2].setText(Integer.toString(line.getFrame(currentFrame - 2).getScore()));
                 frameScores[currentFrame - 3].setText(Integer.toString(line.getFrame(currentFrame - 3).getScore()));
             }
