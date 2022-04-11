@@ -3,14 +3,22 @@ package com.bowling;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class AppTest {
 
+    Line line;
+
+    @Before
+    public void init(){
+        line = new Line();
+        line.initLine();
+    }
+
     @Test
     public void testAllStrike() throws TryOutOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
+        
         int[] scores = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
         for (int score : scores) {
             try {
@@ -45,8 +53,6 @@ public class AppTest {
 
     @Test
     public void testNineZero() throws TryOutOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0 };
         for (int score : scores) {
             try {
@@ -61,8 +67,6 @@ public class AppTest {
 
     @Test
     public void testFiveSpare() throws TryOutOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 };
         for (int score : scores) {
             try {
@@ -88,8 +92,6 @@ public class AppTest {
 
     @Test
     public void testAllZero() throws TryOutOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         for (int score : scores) {
             try {
@@ -104,8 +106,6 @@ public class AppTest {
 
     @Test
     public void testNineOne() throws TryOutOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1 };
         for (int score : scores) {
             try {
@@ -130,8 +130,6 @@ public class AppTest {
 
     @Test 
     public void testZeroSpare() throws TryOutOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10 };
         for (int score : scores) {
             try {
@@ -156,8 +154,6 @@ public class AppTest {
 
     @Test
     public void testAllMiss() throws TryOutOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5 };
         for (int score : scores) {
             try {
@@ -171,8 +167,6 @@ public class AppTest {
 
     @Test
     public void testStrikeSpare() throws TryOutOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 10, 9, 1, 10, 7,3, 10,2,8,10,5,5,10,1,9 };
         for (int score : scores) {
             try {
@@ -198,8 +192,6 @@ public class AppTest {
 
     @Test(expected = TryOutOfLineException.class)
     public void testTooMuchTries() throws TryOutOfLineException, EndOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 };
         for (int score : scores) {
             try {
@@ -227,8 +219,6 @@ public class AppTest {
 
     @Test(expected = InvalidScoreException.class)
     public void testInvalidFrame() throws TryOutOfLineException, EndOfLineException, InvalidScoreException {
-        Line line = new Line();
-        line.initLine();
         int[] scores = { 5, 3, 5, 10 };
         for (int score : scores) {
             line.startTry(score);
